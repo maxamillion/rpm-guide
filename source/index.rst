@@ -93,7 +93,7 @@ installed on your system:
 
 ::
 
-    $ yum install gcc rpmbuild rpm-devel rpmlint make python bash coreutils diffutils
+    $ yum install gcc rpm-build rpm-devel rpmlint make python bash coreutils diffutils
     patch
 
 

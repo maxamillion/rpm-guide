@@ -86,8 +86,8 @@ installed on your system:
 
 ::
 
-    $ dnf install gcc rpmbuild rpm-devel rpmlint make python bash coreutils diffutils
-    patch
+    $ dnf install gcc rpm-build rpm-devel rpmlint make python bash coreutils diffutils
+    patch rpmdevtools
 
 * For `RHEL`_ or `CentOS`_ (this guide assumes version 7.x of either):
 

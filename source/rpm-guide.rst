@@ -252,7 +252,7 @@ whatever the actual version number is that was entered in the `Version` field of
 the SPEC.
 
 .. note::
-    I handy utility of the ``rpm`` command for packager is the ``--eval`` flag
+    One handy utility of the ``rpm`` command for packagers is the ``--eval`` flag
     which allows you to ask rpm to evaluate a macro so if you see one in a SPEC
     file that you're not familiar with you can quickly find out what it
     evaluates to.

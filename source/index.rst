@@ -86,14 +86,14 @@ installed on your system:
 
 ::
 
-    $ dnf install gcc rpmbuild rpm-devel rpmlint make python bash coreutils diffutils
+    $ dnf install gcc rpm-build rpm-devel rpmlint make python bash coreutils diffutils
     patch
 
 * For `RHEL`_ or `CentOS`_ (this guide assumes version 7.x of either):
 
 ::
 
-    $ yum install gcc rpmbuild rpm-devel rpmlint make python bash coreutils diffutils
+    $ yum install gcc rpm-build rpm-devel rpmlint make python bash coreutils diffutils
     patch
 
 

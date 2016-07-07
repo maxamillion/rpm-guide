@@ -73,8 +73,8 @@ used through out paragraphs will be written in a ``monospace`` font.
 Prerequisites
 -------------
 
-In order to perform the following the following examples you will need a few
-packages installed on your system:
+In order to perform the following examples you will need a few packages
+installed on your system:
 
 .. note::
     The inclusion of some of the packages below are not actually necessary
@@ -86,15 +86,15 @@ packages installed on your system:
 
 ::
 
-    $ dnf install gcc rpmbuild rpm-devel rpmlint make python bash coreutils diffutils
-    patch
+    $ dnf install gcc rpm-build rpm-devel rpmlint make python bash coreutils diffutils
+    patch rpmdevtools
 
 * For `RHEL`_ or `CentOS`_ (this guide assumes version 7.x of either):
 
 ::
 
-    $ yum install gcc rpmbuild rpm-devel rpmlint make python bash coreutils diffutils
-    patch
+    $ yum install gcc rpm-build rpm-devel rpmlint make python bash coreutils diffutils
+    patch rpmdevtools
 
 
 Beyond these preliminary packages you will also need a text editor of your

@@ -38,7 +38,7 @@ the :ref:`Appendix <appendix>` will satisfy the craving for knowledge that has
 been left out of this section.
 
 What is an RPM?
-----------_----
+---------------
 
 To kick things off, let's first define what an RPM actually is. An RPM package
 is simply a file that contains some files as well as information the system
@@ -151,11 +151,14 @@ SPEC Directive      Definition
                     entirely in an interpreted programming language, this should
                     be ``BuildArch: noarch`` otherwise it will automatically
                     inherit the Architecture of the machine it's being built on.
-``BuildRequires``   A comma-separated list of packages required for building
+``BuildRequires``   A comma or whitespace separated list of packages required
+                    for building
                     (compiling) the program. There can be multiple entries of
-                    ``BuildRequires`` each on it's own line in the SPEC file.
-``Requires``        A comma-separate list of packages that are required by the
-                    software to run once installed.
+                    ``BuildRequires`` each on its own line in the SPEC file.
+``Requires``        A comma or whitespace separated list of packages required
+                    by the software to run once installed. There can
+		    be multiple entries of ``Requires`` each on its
+		    own line in the SPEC file.
 ``ExcludeArch``     In the event a piece of software can not operate on a
                     specific processor architecture, you can exclude it here.
 ==================  ============================================================
@@ -198,7 +201,7 @@ SPEC Directive      Definition
                     build procedure (compile) of the software.
 ``%install``        Command or series of commands used to actually install the
                     various artifacts into a resulting location in the FHS.
-                    Something to note is that this is done withing the relative
+                    Something to note is that this is done within the relative
                     context of the ``%buildroot`` (more on that later).
 ``%check``          Command or series of commands to "test" the software. This
                     is normally things such as unit tests.
@@ -250,9 +253,8 @@ the SPEC.
 
 .. note::
     I handy utility of the ``rpm`` command for packager is the ``--eval`` flag
-    which allows you to ask rpm to evaluate a macro so if you see one in a SPEC
-    file that you're not familiar with you can quickly find out what it
-    evaluates to.
+    which allows you to ask rpm to evaluate a macro. If you see a macro in a SPEC
+    file that you're not familiar with, you can quickly evaluate the expression.
 
     ::
 
@@ -286,15 +288,15 @@ section of the :ref:`Appendix <appendix>`.
 Working with SPEC files
 -----------------------
 
-As a RPM Packager, you will likely spend a large majority of your time when
-packaging software in the SPEC file since this is the recipe we use to tell
+As a RPM Packager, you will likely spend a large majority of your time, when
+packaging software, editing the SPEC file. The spec file is the recipe we use to tell
 ``rpmbuild`` how to actually perform a build. In this section we will discuss
 how to create and modify a spec file.
 
-When it comes time to package new software, you will want to create a new SPEC
-file and we *could* write one from scratch from memory but that sounds boring
-and tedious so let's not do that. The good news is that we're in luck and
-there's an utility called ``rpmdev-newspec`` which will create one for us and we
+When it comes time to package new software, a new SPEC file must be created. 
+We *could* write one from scratch from memory but that sounds boring
+and tedious, so let's not do that. The good news is that we're in luck and
+there's an utility called ``rpmdev-newspec``. This utility will create a new spec file for us. We
 will just fill in the various directives or add new fields as needed. This
 provides us with a nice baseline template.
 
@@ -378,9 +380,9 @@ bello
 
 Our first SPEC file will be for our example written in `bash`_ shell script that
 you downloaded (or you created a simulated upstream release in the :ref:`General
-Topics and Background <general-background>` Section) and placed it's source code
+Topics and Background <general-background>` Section) and placed its source code
 into ``~/rpmbuild/SOURCES/`` earlier. Let's go ahead and open the file
-``~/rpmbuild/SOURCES/bello.spec`` and start filling in some fields.
+``~/rpmbuild/SPECS/bello.spec`` and start filling in some fields.
 
 The following is the output template we were given from ``rpmdev-newspec``.
 
@@ -674,7 +676,7 @@ Our second SPEC file will be for our example written in the `Python`_
 programming language that  you downloaded (or you created a simulated upstream
 release in the :ref:`General Topics and Background <general-background>`
 Section) and placed it's source code into ``~/rpmbuild/SOURCES/``
-earlier. Let's go ahead and open the file ``~/rpmbuild/SOURCES/bello.spec``
+earlier. Let's go ahead and open the file ``~/rpmbuild/SPECS/bello.spec``
 and start filling in some fields.
 
 Before we start down this path, we need to address something somewhat unique
@@ -701,7 +703,7 @@ point into our software. We will do this as a part of our SPEC file itself in
 order to demonstrate how you can script actions inside the SPEC file. We will
 cover the specifics of this in the ``%install`` section later.
 
-Let's go ahead and open the file ``~/rpmbuild/SOURCES/pello.spec`` and start
+Let's go ahead and open the file ``~/rpmbuild/SPECS/pello.spec`` and start
 filling in some fields.
 
 The following is the output template we were given from ``rpmdev-newspec``.
@@ -1048,7 +1050,7 @@ Our third SPEC file will be for our example written in the `C`_ programming
 language that we created a simulated upstream release of previously (or you
 downloaded) and placed it's source code into ``~/rpmbuild/SOURCES/`` earlier.
 
-Let's go ahead and open the file ``~/rpmbuild/SOURCES/cello.spec`` and start
+Let's go ahead and open the file ``~/rpmbuild/SPECS/cello.spec`` and start
 filling in some fields.
 
 The following is the output template we were given from ``rpmdev-newspec``.
@@ -1353,7 +1355,7 @@ on the two main targets of building an RPM and that is creating Source and
 Binary RPMs.
 
 One of the things you may notice about ``rpmbuild`` is that it expects the
-directory structure created in a certain way and for various items suck as
+directory structure created in a certain way and for various items such as
 source code to exist within the context of that directory structure. Luckily,
 this is the same directory structure that was setup by the ``rpmdev-setuptree``
 utility that we used previously to setup our RPM workspace and we have been
@@ -1371,10 +1373,12 @@ wrong. Another reason is if we want to build a Binary RPM on a different
 hardware platform or `architecture`_.
 
 In order to create a Source RPM we need to pass the "build source" or ``-bs``
-argument to ``rpmbuild`` and we will provide a SPEC file as the argument. We
+option to ``rpmbuild`` and we will provide a SPEC file as the argument. We
 will do so for each of our examples we've created above.
 
 ::
+
+    $ cd ~/rpmbuild/SPECS/
 
     $ rpmbuild -bs bello.spec
     Wrote: /home/admiller/rpmbuild/SRPMS/bello-0.1-1.el7.src.rpm
@@ -1862,6 +1866,11 @@ pello
     + cd pello-0.1.1
     + /usr/bin/rm -rf /home/admiller/rpmbuild/BUILDROOT/pello-0.1.1-1.el7.x86_64
     + exit 0
+
+cello
+"""""
+
+::
 
     $ rpmbuild -bb ~/rpmbuild/SPECS/cello.spec
     Executing(%prep): /bin/sh -e /var/tmp/rpm-tmp.FveYdS
